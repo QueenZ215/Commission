@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Zoe Coolbaugh">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission</title>
+</head>
+<body>
+    <script>
+        var uname, subtotal = 0, comrate, comtotal, earnings, amount, output, moneyformat;
+        var rates = [0, 0.05, 0.10, 0.15];
+        //Ask username
+        uname = prompt("Enter username").trim();
+        //sales force to to enter the dollar and cents amounts of each sale.
+        do{
+        amount = prompt(`Logged in as ${uname}\n Enrer the dollar amount for your sales a single sale at a time.\nEnter Done when you are finished.`).trim();
+        //When they finish entering all of their sales, they enter "Done".        
+        subtotal += amount;
+        }while(amount.lower() !== "done")
+        //determine the amount of commission the salesperson will receive.
+        comrate = subtotal <=0 ? rates[0] : subtotal > 0 && subtotal < 500 ? rates[1]:  subtotal >= 500 && subtotal < 1000 ? rates[2]: rates[3];
+        comtotal = subtotal * comrate;
+        earnings = subtotal + comtotal;
+        //if subtotal is zero everythings is zero
+        if (comrate  === 0){
+            comtotal = 0;
+            earnings = 0;
+        }
+        //format money $#.## and Commission rate to %
+        
+        subtotal = subtotal.toFixed(2);
+        comtotal = comtotal.toFixed(2);
+        earnings = earnings.toFixed(2);
+        //Display Subtotal, commission rate, total commission, total earnings.
+        output = `<h2>Hello ${uname}, Here is your Weekly Commission Report.</h2><p>Your sales total is \$${subtotal}, so your commission rate is ${comrate * 100}%<br>Your total commission is \$${comtotal}.<br>Your total earnings are \$${earnings}`
+        
+        
+        /*
+        Required Output:
+        Hello <username>, Here is your Weekly Commission Report.
+        Your sales total is $598.24, so your commission rate is 10.00%
+        Your total commission is $59.82.
+        Your total earnings are $658.06
+        */
+
+
+
+    </script>
+</body>
+</html>
