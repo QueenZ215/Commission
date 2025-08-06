@@ -5,8 +5,33 @@
     <meta name="author" content="Zoe Coolbaugh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commission</title>
+    <style>
+        #outer {
+            border: 2px solid #000;
+            box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.3);
+            max-width:35em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: tan;
+        }
+        #output {
+            border: 2px solid #000;
+            box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.3);
+            max-width:30em;
+            margin:1em;
+            text-align: center;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
+    <div id="outer">
+        <section id="output">
+
+        </section>
+
+    </div>
     <script>
         var uname, subtotal = 0, comrate, comtotal, earnings, amount, output, moneyformat;
         var rates = [0, 0.05, 0.10, 0.15];
@@ -14,10 +39,12 @@
         uname = prompt("Enter username").trim();
         //sales force to to enter the dollar and cents amounts of each sale.
         do{
-        amount = prompt(`Logged in as ${uname}\n Enrer the dollar amount for your sales a single sale at a time.\nEnter Done when you are finished.`).trim();
+        amount = prompt(`Logged in as ${uname}\n Enter the dollar amount for your sales a single sale at a time.\nEnter Done when you are finished.`).trim();
         //When they finish entering all of their sales, they enter "Done".        
-        subtotal += amount;
-        }while(amount.lower() !== "done")
+        if (amount.toLowerCase() !== "done") {
+            subtotal += parseFloat(amount);
+        }
+        }while(amount.toLowerCase() !== "done")
         //determine the amount of commission the salesperson will receive.
         comrate = subtotal <=0 ? rates[0] : subtotal > 0 && subtotal < 500 ? rates[1]:  subtotal >= 500 && subtotal < 1000 ? rates[2]: rates[3];
         comtotal = subtotal * comrate;
@@ -34,7 +61,7 @@
         earnings = earnings.toFixed(2);
         //Display Subtotal, commission rate, total commission, total earnings.
         output = `<h2>Hello ${uname}, Here is your Weekly Commission Report.</h2><p>Your sales total is \$${subtotal}, so your commission rate is ${comrate * 100}%<br>Your total commission is \$${comtotal}.<br>Your total earnings are \$${earnings}`
-        
+        document.getElementById("output").innerHTML = output;
         
         /*
         Required Output:
